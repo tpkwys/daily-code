@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @program: daily-code
- * @description: 减法计数器案例
+ * @description: 减法计数器案例 （一个线程等多个线程）
  * @author: tianpanke
  * @create: 2020-07-28
  **/

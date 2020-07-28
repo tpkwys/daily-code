@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @program: daily-code
- * @description: 加法计数器案例
+ * @description: 加法计数器案例（多个线程相互等待）
  * @author: tianpanke
  * @create: 2020-07-28
  **/
