@@ -22,14 +22,14 @@ public class DefaultLoginContextProvider  implements LoginContextProvider {
     public LoginContext get(HttpServletRequest request, HttpServletResponse response) {
         Optional<String> sessionIdOps = getCookieValueOps(BizConstant.KZW_SESSION_ID,request);
         if(sessionIdOps.isPresent()){
-            UserPO userPO = userService.getUserBySessionId(sessionIdOps.get());
-            if(userPO != null){
-                return LoginContext.builder()
-                        .userId(userPO.getId())
-                        .nickName(userPO.getNickName())
-                        .realName(userPO.getRealName())
-                        .build();
-            }
+//            UserPO userPO = userService.getUserBySessionId(sessionIdOps.get());
+//            if(userPO != null){
+//                return LoginContext.builder()
+//                        .userId(userPO.getId())
+//                        .nickName(userPO.getNickName())
+//                        .realName(userPO.getRealName())
+//                        .build();
+//            }
         }
         return null;
     }

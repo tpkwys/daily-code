@@ -1,14 +1,7 @@
 package com.aaron.daily.login.provider;
 
 import com.aaron.daily.login.BizConstant;
-import com.kunchi.dtc.rc.api.GetUserApi;
-import com.kunchi.dtc.rc.dto.SessionDto;
-import com.kunchi.dtc.rc.po.UserItem;
-import com.kunchi.isb.base.result.ISBResult;
-import com.kunchi.kzw.constant.BizConstant;
-import com.kunchi.kzw.exception.KZWException;
-import com.kunchi.kzw.login.LoginContext;
-import com.kunchi.kzw.po.UserPO;
+import com.aaron.daily.login.LoginContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,8 +18,8 @@ import java.util.Optional;
 @Component
 public class KicsLoginContextProvider extends DefaultLoginContextProvider {
 
-    @Autowired
-    GetUserApi getUserApi;
+//    @Autowired
+//    GetUserApi getUserApi;
 
     @Override
     public LoginContext get(HttpServletRequest request, HttpServletResponse response) {
@@ -35,34 +28,35 @@ public class KicsLoginContextProvider extends DefaultLoginContextProvider {
         Optional<String> kicsSessionIdOps = getCookieValueOps(BizConstant.KICS_SESSION_ID,request);
         if(kicsLoginNameOps.isPresent() && kicsSessionIdOps.isPresent()){
 
-            //根据sessionId从统一认证中心获取userItem(用户信息)
-            SessionDto logInNameDto = new SessionDto();
-            logInNameDto.setLoginName(kicsLoginNameOps.get());
-            ISBResult<UserItem> userItemISBResult = getUserApi.process(logInNameDto);
-            UserItem userItem = userItemISBResult.getBody();
-            if(userItem != null){
-
-                //利用userItem(用户信息) 进行登录
-                UserPO userPO = userService.loginFromKics(kicsSessionIdOps.get(), userItem);
-
-                //添加登录信息到cookie
-                Cookie cookie = new Cookie(BizConstant.KZW_SESSION_ID,kicsSessionIdOps.get());
-                cookie.setHttpOnly(true);
-                cookie.setMaxAge(BizConstant.KZW_SESSION_TIMEOUT_IN_KICS);
-                cookie.setPath("/");
-                response.addCookie(cookie);
-
-                //返回loginContext
-                return LoginContext.builder()
-                        .userId(userPO.getId())
-                        .nickName(userPO.getNickName())
-                        .realName(userPO.getRealName())
-                        .build();
-            }
+//            //根据sessionId从统一认证中心获取userItem(用户信息)
+//            SessionDto logInNameDto = new SessionDto();
+//            logInNameDto.setLoginName(kicsLoginNameOps.get());
+//            ISBResult<UserItem> userItemISBResult = getUserApi.process(logInNameDto);
+//            UserItem userItem = userItemISBResult.getBody();
+//            if(userItem != null){
+//
+//                //利用userItem(用户信息) 进行登录
+//                UserPO userPO = userService.loginFromKics(kicsSessionIdOps.get(), userItem);
+//
+//                //添加登录信息到cookie
+//                Cookie cookie = new Cookie(BizConstant.KZW_SESSION_ID,kicsSessionIdOps.get());
+//                cookie.setHttpOnly(true);
+//                cookie.setMaxAge(BizConstant.KZW_SESSION_TIMEOUT_IN_KICS);
+//                cookie.setPath("/");
+//                response.addCookie(cookie);
+//
+//                //返回loginContext
+//                return LoginContext.builder()
+//                        .userId(userPO.getId())
+//                        .nickName(userPO.getNickName())
+//                        .realName(userPO.getRealName())
+//                        .build();
+//            }
         }
 
-        // 不存在该用户
-        throw KZWException.NO_THIS_USER.get();
+//        // 不存在该用户
+//        throw KZWException.NO_THIS_USER.get();
+        return null;
     }
 
     @Override
